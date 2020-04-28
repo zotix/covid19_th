@@ -91,10 +91,17 @@ class _DisplayState extends State<Display> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 5.0),
-        Header(),
-        TodaySection(),
-        SizedBox(height: 5.0),
+        Visibility(
+          visible: MediaQuery.of(context).orientation == Orientation.portrait,
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 5.0),
+              Header(),
+              TodaySection(),
+              SizedBox(height: 5.0),
+            ],
+          ),
+        ),
         Text('กราฟแสดงตามช่วงเวลา (เริ่มตั้งแต่วันที่ 15/02/20)'),
         Expanded(
           child: TimelineChart(
