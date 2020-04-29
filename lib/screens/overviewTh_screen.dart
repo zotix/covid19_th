@@ -41,11 +41,10 @@ class _OverviewThScreenState extends State<OverviewThScreen> {
         );
         chartData.add(c);
       }
-
       setState(() {
         _selectedIndex = 1;
       });
-      print(data.source);
+//      print(data.source);
     } catch (e) {
       print('try get data');
       print(e);
@@ -53,10 +52,18 @@ class _OverviewThScreenState extends State<OverviewThScreen> {
   }
 
   void initState() {
+    print(data.updateDate);
     super.initState();
-    getData();
+    if (data.updateDate == null) {
+      print('Try loading data..');
+      getData();
+    } else {
+      // Changing to Display widget
+      _selectedIndex = 1;
+    }
   }
 
+  // Start Loading widget
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     Center(

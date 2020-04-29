@@ -13,8 +13,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   List<BottomNavigationBarItem> _barItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.public),
-      title: Text('World'),
+      icon: Icon(Icons.assignment),
+      title: Text('City'),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.home),
@@ -42,17 +42,29 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return MediaQuery.of(context).orientation == Orientation.portrait
+        ? _portrait()
+        : _landscape();
+  }
+
+  Widget _portrait() {
     return Scaffold(
       appBar: AppBar(
         title: Text('COVID19 TH Update'),
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: SafeArea(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         items: _barItems,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
+    );
+  }
+
+  Widget _landscape() {
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 

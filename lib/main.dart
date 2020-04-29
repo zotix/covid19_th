@@ -1,5 +1,6 @@
 import 'package:covid19th/screens/overviewTh_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,13 +18,32 @@ class MyApp extends StatelessWidget {
 //    SystemChrome.setPreferredOrientations(
 //      [DeviceOrientation.portraitUp],
 //    );
+
     return MaterialApp(
       title: _title,
       debugShowCheckedModeBanner: false,
-//      home: NavigationScreen(),
-      home: Scaffold(
-        body: SafeArea(child: OverviewThScreen()),
+      home: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          if (orientation == Orientation.landscape) {
+            SystemChrome.setEnabledSystemUIOverlays([]);
+          } else {
+            SystemChrome.setEnabledSystemUIOverlays(
+              SystemUiOverlay.values,
+            );
+          }
+//          return NavigationScreen();
+          return Scaffold(
+              body:
+                  ((MediaQuery.of(context).orientation == Orientation.portrait)
+                      ? SafeArea(child: OverviewThScreen())
+                      : OverviewThScreen()));
+        },
       ),
+
+//      home: NavigationScreen(),
+//      home: Scaffold(
+//        body: SafeArea(child: OverviewThScreen()),
+//      ),
     );
   }
 }
